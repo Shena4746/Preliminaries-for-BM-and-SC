@@ -1,6 +1,6 @@
 {
 	"markdown.extension.print.theme": "dark",
-	//"latex-workshop.view.pdf.viewer": "tab",
+	"latex-workshop.view.pdf.viewer": "tab",
 	// Specify HyperSnips file path to be applied ONLY IF YOU NEED IT. You are recommended to use the default one: /home/user/.config/Code/User/hsnips/latex.hsnips
 	// "hsnips.hsnipsPath": ".vscode/tex.hsnips",
 	"[tex]": {
@@ -81,4 +81,13 @@
 			],
 		},
 	],
+	"cSpell.customDictionaries": {
+		"custom-dictionary-workspace": {
+			"name": "custom-dictionary-workspace",
+			"path": "${workspaceFolder}/.cspell/custom-dictionary-workspace.txt",
+			"addWords": true,
+			"scope": "workspace"
+		}
+	},
+	"latex-workshop.bibtex-format.sort.enabled": true,
 }

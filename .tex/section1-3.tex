@@ -1,0 +1,239 @@
+\documentclass{report}
+%\documentclass[a4paper,12pt]{article}
+\usepackage{mystyle}
+\usepackage{commands}
+\mathtoolsset{showonlyrefs=true}
+
+% remember that docmute package neglects all the preambles of the included .tex files. 
+\begin{document}
+% note that \chapter is not available for article
+\section{Continuous-Time Martingales}
+\setcounter{exe}{1}
+\begin{prob}
+	Let \( T_1,T_2,\dotsm \) be a sequence of independent, exponentially distributed random variable with parameter \( \lambda \gg 0 \):
+	\[
+		P(T_i \in dt)=\lambda e^{-\lambda t}dt, \quad t \ge 0.
+	\]
+	Let \( S_0:=0 \) and \( S_n:=\sum_{i=1}^{n}T_i; \) \( n \ge1 \).
+	Define a continuous-time, integer-valued RCLL process
+	\[N_t:=\max \{ n \ge 0; \; S_n\le t\};\quad 0\le t\le \infty.\]
+	\begin{itemize}
+		\item[(1)] Show that for \( 0\le s \le t \) we have
+		      \[P(S_{N_s+1}\gg t \;|\; \mathscr{F}_s^N)=e^{-\lambda (t-s)}\quad \mathrm{a.s.}\]
+		\item[(2)] Show that for \( 0\le s\le t \), \( N_t-N_s \) is a Poisson random variable with
+		      parameter \( \lambda (t-s) \), independent of \( \mathscr{F}_s^N \).
+	\end{itemize}
+\end{prob}
+
+\setcounter{exe}{3}
+\begin{prob}
+	Prove that a compensated Poisson process \( \{M_t, \mathscr{F}_t;\; t\ge0\} \)
+	is a martingale.
+\end{prob}
+
+\subsubsection*{A. Fundamental Inequalities}
+\addcontentsline{toc}{subsection}{A. Fundamental Inequalities}
+
+\setcounter{exe}{6}
+\begin{prob}
+	Let \( \{X_t=(X_t^{(1)},\dotsm,X_t^{(d)}),\mathscr{F}_t;\; 0\le t\ll \infty \} \) be a 
+	vector of martingales, and \( \varphi:\mathbb{R}^d\to \mathbb{R} \) a convex function
+	with \( E|\varphi(X_t)|\ll \infty \) valid for every \( t\ge 0. \)
+	Then \( \{\varphi(X_t), \mathscr{F}_t;\; 0\le t\ll \infty \} \) is a submartingale.
+\end{prob}
+
+\setcounter{exe}{8}
+\begin{prob}
+	Let \( N \) be a Poisson process with intensity \( \lambda. \)
+	\begin{itemize}
+		\item[(1)] For any \( c\gg 0 \),
+		      \[\varlimsup_{n\to \infty }P\big[\sup_{0\le s\le t}(N_s-\lambda s)\ge c\sqrt{\lambda t}\big]\le \frac{1}{c\sqrt{2\pi}}.\]
+		\item[(2)] For any \( c\gg 0 \),
+		      \[\varlimsup_{n\to \infty }P\big[\inf_{0\le s\le t}(N_s-\lambda s)\le -c\sqrt{\lambda t}\big]\le \frac{1}{c\sqrt{2\pi}}.\]
+		\item[(3)] For \( 0\ll a \ll b \), we have
+		      \[E\big[\sup_{a\le t\le b}{(\frac{N_t}{t}-\lambda)} ^2\big]\le \frac{4b\lambda}{a^2}.\]
+	\end{itemize}
+\end{prob}
+
+\setcounter{exe}{10}
+\begin{prob}
+	Let \( \{\mathscr{F}_n \} _{n=1}^{\infty } \) be a decreasing sequence of sub-\( \sigma \)-field
+	of  \( \mathscr{F} \), and let \( \{X_n,\mathscr{F}_n;\; n\ge1\} \) be a \textit{backward submartingale};\;i.e., \( E|X_n|\ll \infty, \) \( X_n \) is \( \mathscr{F}_n \)-measurable, and
+	\( E(X_n|\mathscr{F}_{n+1})\ge X_{n+1} \) a.s.\,for every \( n\ge 1 \). 
+	Then \( l:=\lim_{n\to \infty }E(X_n)\gg -\infty \) implies that the sequence \( \{ X_n \} _{n=1}^{\infty } \) is uniformly integrable.
+\end{prob}
+
+\subsubsection*{B. Convergence Results}
+\addcontentsline{toc}{subsection}{B. Convergence Results}
+\begin{prob}
+	Let \( \{X_t, \mathscr{F}_t;\; 0\le t\ll \infty \} \) be a right-continuous, nonnegative
+	supermartingale; then \( X_{\infty }:=\lim_{n\to \infty }X_t \) exists a.s.
+	and \( \{X_t, \mathscr{F}_t;\; 0\le t\le \infty \} \) is a supermartingale.
+\end{prob}
+\begin{prf}
+	Since \( \{E(X_t)\} \) is bounded by \( E(X_0) \), we have \( X_t\to \exists X_{\infty } \) a.s.
+	Then, for \( 0\le s \ll t \) and \( A\in \mathscr{F}_s \), we have
+	\[E(X_s \;;\;A)\ge E(X_t \;;\;A).\]
+	Letting \( t\to \infty \), Fatou's Lemma implies
+	\[E(X_s \;;\;A)\ge E(X_{\infty } \;;\;A).\]
+	Thus 
+	\[X_s\ge E(X_{\infty }|\mathscr{F}_s)\quad \mathrm{a.s.}\]
+\end{prf}
+
+\setcounter{exe}{17}
+\begin{exe}
+	Suppose that the filtration \( \{\mathscr{F}_t\} \) satisfies the usual conditions.
+	Then every right-continuous, uniformly integrable supermartingale \( \{X_t, \mathscr{F}_t;\; 0\le t\ll \infty \} \) admits the \textit{Riesz decomposition} \( X_t=M_t+Z_t \) a.s.
+	as the sum of a right-continuous uniformly integrable martingale \( \{M_t, \mathscr{F}_t;\; 0\le t\ll \infty \} \) and a potential \( \{Z_t, \mathscr{F}_t;\; 0\le t\ll \infty \} \).
+\end{exe}
+\begin{prf}
+	First, we construct \( M_t \).
+	UI property guarantees the a.s.\,existence of \( X_{\infty }:=\lim_{t\to \infty }X_t \).
+	Define \( X_{\infty }(\omega):=0 \) for bad \( \omega \), so that \( X_{\infty } \) always exists.
+	Clearly, \( \{X_t, \mathscr{F}_t;\; 0\le t\le \infty \} \) is a RC, UI supermartingale.
+	Consider \( \{E(X_{\infty }|\mathscr{F}_t), \mathscr{F}_t;\; 0\le t\ll \infty  \).
+	Clearly it is a UI martingale, and \( t\mapsto EX_t \) is RC since it has constant expectation.
+	Thus The Regularity Theorem implies that there exists a version \( M_t \) of \( W_t \)
+	such that \( \{M_t,\mathscr{F}_t;\;0\le t\ll \infty \} \) is a RC martingale, and 
+	so derived \( \{M_t\} \) is obviously UI.
+	
+	Finally we construct \( Z_t \). We claim that
+	\[
+		P(M_t\le X_t \quad \forall t\in[0,\infty ) )=1.
+	\]
+	Indeed, \( \mathscr{F}_0 \)-measurable sets defined by
+	\[
+		\Omega_1:=\{E(X_{\infty }|\mathscr{F}_t)\le X_t\quad \forall t\in \mathbb{Q}+\}
+	\]
+	\[
+		\Omega_2:=\{E(X_{\infty }|\mathscr{F}_t)=M_t \quad \forall t\in \mathbb{Q}+\}
+	\]
+	\[
+		\Omega_3:=\{-\infty \ll X_t, M_t\ll \infty \quad \forall t\in[0,\infty)\}
+	\]
+	have probability 1, and the same is true for \( \Omega^{\star}:=\Omega_1\cap \Omega_2 \cap \Omega_3 \).
+	For \( \omega \in \Omega^{\star} \) we have
+	\[M_t(\omega)=\lim_{n\to \infty }M_{t_n}(\omega)= \lim_{n\to \infty }E(X_{\infty }|\mathscr{F}_{t_n})(\omega)\le \lim_{n\to \infty }X_{t_n}(\omega)=X_t(\omega)\]
+	for every \( t\ge0 \) and \( \{t_n\}\subset \mathbb{Q}+ \) with \( t_n\downarrow t \).
+	Set
+	\begin{equation*}
+		Z_t:=\begin{cases}
+			X_t-M_t & ;\;\;\omega \in \Omega^{\star}     \\
+			0       & ;\;\;\omega \notin \Omega^{\star}.
+		\end{cases}
+	\end{equation*}
+	It is easy to check that \( \{Z_t,\mathscr{F}_t;\;0\le t\ll \infty \} \) is actually a potential.
+\end{prf}
+
+\begin{prob}
+	The following three conditions are equivalent for a nonnegative right-continuous
+	submartingale \( \{X_t, \mathscr{F}_t;\; 0\le t\ll \infty \} \):
+	\begin{itemize}
+		\item[(1)] it is a uniformly integrable family of random variables;
+		\item[(2)] it converges in \( \mathscr{L}^1 \), as \( n\to \infty \);
+		\item[(3)] it converges a.s. to an integrable random variable \( X_{\infty } \), such that
+		      \( \{X_t, \mathscr{F}_t;\; 0\le t\le \infty \} \) is a submartingale.
+	\end{itemize}
+\end{prob}
+\begin{prf}
+	\( (1) \Rightarrow (2): \) Since \( \{X_t\} \) is \( \mathscr{L}^1 \)-bounded, we have \( X_t\to \exists X_{\infty } \) a.s.
+	UI property implies that \( X_t\to X_{\infty } \) in \( \mathscr{L}^1 \).
+	
+	\( (2) \Rightarrow (3): \) Since \( \{E(|X_t|)\} \) is convergent (hence it is bounded), we have
+	\( X_t\to \exists X_{\infty } \) a.s. and the rest is easy.
+	
+	\( (3) \Rightarrow (1): \)
+	Since \( X_t \) is nonnegative, \( X_t \) is dominated by \( E(X_{\infty }|\mathscr{F}_t) \),
+	which is UI. Thus \( X_t \) is also UI. 
+\end{prf}
+
+\begin{prob}
+	The following four conditions are equivalent for a continuous
+	martingale \( \{X_t, \mathscr{F}_t;\; 0\le t\ll \infty \} \):
+	\begin{itemize}
+		\item[(1), (2)] as in Problem 3.19;
+		\item[(3)] it converges a.s. to an integrable random variable \( X_{\infty } \), such that
+		      \( \{X_t, \mathscr{F}_t;\; 0\le t\le \infty \} \) is a martingale;
+		\item[(4)] there exists an integrable random variable \( Y \), such that \( X_t=E(Y|\mathscr{F}_t) \) a.s. for every \( t\ge0 \).
+	\end{itemize}
+\end{prob}
+\begin{prf}
+	\( (1) \Leftrightarrow (2) \Leftrightarrow (3): \) the same as before.
+	\( (3) \Rightarrow (4): \) Set \( Y=X_{\infty } \).\\
+	\( (4) \Rightarrow (1): \) Clear.
+\end{prf}
+\begin{prob}
+	Let \( \{N_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \) be a Poisson process with parameter
+	\( \lambda\gg0 \). For \( u\in \mathbb{C} \), define the process 
+	\[X_t:=\exp[iuN_t-\lambda t(e^{iu}-1)];\quad 0\le t\ll \infty.\]
+	\begin{itemize}
+		\item[(1)] Show that \( \{\mathrm{Re}(X_t),\mathscr{F}_t;\;0\le t\ll \infty \} \),
+		      \( \{\mathrm{Im}(X_t),\mathscr{F}_t;\;0\le t\ll \infty \} \) are martingales.
+		\item[(2)] Consider \( X \) with \( u=-i \). Does this martingale satisfy the equivalent conditions of Problem 3.20?
+	\end{itemize}
+\end{prob}
+
+\subsubsection*{C. The Optional Sampling Theorem}
+\addcontentsline{toc}{subsection}{C. The Optional Sampling Theorem}
+
+\setcounter{exe}{22}
+\begin{prob}
+	Establish the optional sampling theorem for a right-continuous submartingale 
+	\( \{X_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \) and optional times \( S\le T \) under either
+	of the following two conditions: 
+	\begin{itemize}
+		\item[(1)] \( T \) is a \textit{bounded} optional time (there exists a number \( a\gg 0 \), such that \( T\le a \))
+		\item[(2)] there exists an integrable random variable \( Y \), such that \( X_t\le E(Y|\mathscr{F}_t) \) a.s. for every \( t\ge0 \).
+	\end{itemize}
+\end{prob}
+
+\begin{prob}
+	Suppose that \( \{X_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \) is a right-continuous
+	submartingale and \( S\le T \) are stopping times of \( \{\mathscr{F}_t\} \). Then
+	\item[(1)] \( \{X_{T\wedge t},\mathscr{F}_t;\; 0\le t\ll \infty \} \) is a submartingale;
+	\item[(2)] \( E(X_{T\wedge t}|\mathscr{F}_S)\ge X_{S\wedge t} \) a.s. for every \( t\ge0. \)
+\end{prob}
+
+\begin{prob}
+	A submartingale of constant expectation, i.e., with \( E(X_t)=E(X_0) \) for every \( t\ge 0 \),
+	is a martingale.
+\end{prob}
+
+\begin{prob}
+	A right-continuous process \( X=\{X_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \) with \( E|X_t|\ll \infty; \) \( 0\le t\ll \infty \) is a submartingale if and only if for every pair \( S\le T \) of
+	bounded stopping times of the filtration \( \{\mathscr{F}_t\} \) we have
+	\[E(X_T)\ge E(X_S).\]
+\end{prob}
+
+\begin{prob}
+	Let \( T \) be a bounded stopping time of the filtration \( \{\mathscr{F}_t\} \), which
+	satisfies the usual conditions, and define \( \tilde{\mathscr{F}_t}:=\mathscr{F}_{T+t} \);\; \( t\ge0 \). Then \( \{\tilde{\mathscr{F}_t}\} \) also satisfies the usual conditions.
+	\begin{itemize}
+		\item[(1)] If \( X=\{X_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \) is a right-continuous submartingale, then so is \( \tilde{X}=\{\tilde{X_t}:=X_{T+t}-X_t,\tilde{\mathscr{F}_t}\};\; 0\le t\ll \infty \} \).
+		\item[(2)] If  \( \tilde{X}=\{\tilde{X_t},\tilde{\mathscr{F}_t} \;;\; 0\le t \ll \infty \} \) is a right-continuous submartingale with \( X_0:=0 \) a.s. then
+		      \( X=\{X_t:=\tilde{X_{(t-T)\vee 0}},\mathscr{F}_t\;;\; 0\le t\ll \infty \} \) is also a submartingale.
+	\end{itemize}
+\end{prob}
+
+\begin{prob}
+	Let \( Z=\{Z_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \) be a continuous, nonnegative martingale
+	with \( Z_{\infty }:=\lim_{n\to \infty }Z_t=0 \) a.s. Then for every \( s\ge0 \), \( b\ge0 \):
+	\begin{itemize}
+		\item[(1)] \( P(\sup_{t\ge s}Z_t\ge b\;|\;\mathscr{F}_s)=\frac{1}{b}Z_s \),\quad a.s. on \( \{Z_s\ll b\}. \)
+		\item[(2)] \( P(\sup_{t\ge s}Z_t\ge b)=P(Z_s\ge b)+\frac{1}{b}E(Z_s1_{Z_s\ll b}). \)
+	\end{itemize}
+\end{prob}
+
+\begin{prob}
+	Let \( \{X_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \) be a continuous, nonnegative supermartingale and \( T:=\inf \{t\ge 0;\;X_t=0\} \). Show that
+	\[X_{T+t}=0;\quad 0\le t\ll \infty \;\;\mathrm{a.s.\;\;on} \;\; \{ T \ll \infty \}.\]
+\end{prob}
+
+\begin{exe}
+	Suppose that the filtration \( \{\mathscr{F}_t\} \) satisfies the usual conditions and let 
+	\( X^{(n)}=\{X_t^{(n)},\mathscr{F}_t;\; 0\le t\ll \infty \} \), \( n\ge 1 \) be an increasing sequence of right-continuous supermartingales such that the random variable
+	\( \xi_t:=\lim_{n\to \infty }X_t^{(n)} \) is nonnegative and integrable for every \( 0\le t\ll \infty \).
+	Then there exists RCLL supermartingale \( X=\{X_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \) which is a modification of the process \( \xi=\{\xi_t,\mathscr{F}_t;\; 0\le t\ll \infty \} \).
+\end{exe}
+
+\end{document}

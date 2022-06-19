@@ -25,13 +25,18 @@
 \theoremstyle{definition}
 \newtheorem{ex}[thm]{Example}
 \newtheorem*{ex*}{Example}
-
-\theoremstyle{definition}
-\newtheorem{exe}{Exercise}
 % --------- Common Environment
 
+% --------- Specific to this .tex
+\theoremstyle{definition}
+\newtheorem{exe}{Exercise}[section]
+
+\renewcommand{\theexe}{\arabic{section}.\arabic{exe}} % independent numbering
+
+\theoremstyle{definition}
+\newtheorem{prob}[exe]{Problem}
+
 % --------- Common Settings
-\numberwithin{equation}{section}
 \mathtoolsset{showonlyrefs=true}
 % end mark for remark and example
 \newcommand{\fin}{\hfill \( \triangleleft \) }

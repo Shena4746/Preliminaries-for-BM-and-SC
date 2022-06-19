@@ -1,0 +1,110 @@
+\documentclass{report}
+%\documentclass[a4paper,12pt]{article}
+\usepackage{mystyle}
+\usepackage{commands}
+\mathtoolsset{showonlyrefs=true}
+
+% remember that docmute package neglects all the preambles of the included .tex files. 
+\begin{document}
+
+\section{Stochastic Processes and \( \sigma \)-Fields}
+\setcounter{exe}{4} % next 1.5
+\begin{prob}
+	Let \( Y\) be a modification of \( X\), and suppose that both processes have
+	a.s. right-continuous sample paths. Then \( X\) and \( Y\) are indistinguishable. 
+\end{prob}
+\begin{prf}
+	Set
+	\begin{gather*}
+		A:=\{\omega \in \Omega \mid t \mapsto X_t(\omega) \; \text{is not right-continuous}\}, \\
+		B:=\{\omega \in \Omega \mid t \mapsto Y_t(\omega) \; \text{is not right-continuous}\}, \\
+		M_t:=\{\omega \in \Omega \mid X_t(\omega)\neq Y_t(\omega)\},\\
+		M:=\bigcup_{q\in \mathbb{Q}\cap [0,\infty) } M_q,\\
+		N:=A\cup B\cup M.
+	\end{gather*}
+	\( P(N)=0\) by assumption, and note that
+	\[X_q(\omega)=Y_q(\omega)\quad \forall q\in \mathbb{Q}\cap [0,\infty)\quad \forall \omega \notin N.\]
+	On \( \Omega \setminus N\), for any \( t\in [0,\infty)\) choose \( \{q_n \} _{n=1}^{\infty}\in \mathbb{Q}\cap [0,\infty)\)  such that \( q_n \downarrow t\) \( (n\to \infty)\),
+	and then by right-continuity
+	\[X_t=\lim_{n\to \infty}X_{q_n}=\lim_{n\to \infty}Y_{q_n}=Y_t.\]
+	Since \( P(N)=0\), the result follows.
+\end{prf}
+
+%measurability of continuous path
+\setcounter{exe}{6} % next 1.7
+\begin{exe} 
+	Let \( X\) be a stochastic process, every sample path of which is RCLL.
+	Let \( A\) be the
+	event that \( X\) is continuous on \( [0,t_0) \). Show that \( A\in \mathscr{F}_{t_0}^X \). 
+\end{exe}
+\begin{prf}
+	Observe that
+	\begin{align*}
+		A^c & =\{\omega \in \Omega \mid t\mapsto X_t(\omega) \;
+		\text{is not continuous on}\; [0,t_0)\}                                                                  \\
+		    & =\{\exists s\in[0,t_0)\; \text{s.t.}\;
+		X_{s-}\neq X_{s}\}                                                                                       \\
+		    & =\bigcup_{n=1}^{\infty}\bigcap_{m=1}^{\infty}\bigcup_{\substack{q_1, q_2\in \mathbb{Q}\cap [0,t_0) \\ |q_1-q_2|\ll \frac{1}{m}}}
+		\{|X_{q_1}-X_{q_2}|\gg \frac{1}{n}\}.
+	\end{align*}
+	Thus
+	\[A^c\in \sigma \big(\bigcup_{q\in \mathbb{Q}\cap [0,t_0)}\mathscr{F}_{q}^X\big)\subset \mathscr{F}_{t_0}^X.\]
+\end{prf}
+
+\begin{exe}
+	Let \( X \) be a stochastic process whose sample paths are RCLL almost surely, and let \( B \) be the event that \( X \) is continuous on \( [0,t_0) \).
+	Show that if \( \{\mathscr{F}_t\; ;\;t\ge0\} \) is a filtration satisfying
+	\( \mathscr{F}_t^X \subset \mathscr{F}_t \), \( t\ge0 \), and \( \mathscr{F}_{t_0} \) contains
+	all \( P \)-null sets of \( \mathscr{F} \), then \( B\in \mathscr{F}_{t_0} \). 
+\end{exe}
+\begin{prf}
+	Let \( N \) be the set on which \( X \) is not RCLL.
+	By Assumption, \( N\in \mathscr{F}_{t_0} \), and hence, with \( A \) in Exercise 1.7, \( B=A\cap N^c\in \mathscr{F}_{t_0} \).
+\end{prf}
+
+\setcounter{exe}{9} % next 1.10
+\begin{exe}
+	Let \( X \) be a process with every sample path LCRL, and let A be the event that \( X \)
+	is continuous on \( [0,t_0] \).
+	Let \( X \) be adapted to a right-continuous filtration \( \{\mathscr{F}_t\} \).
+	Show that \( A\in \mathscr{F}_{t_0} \).
+\end{exe}
+\begin{prf}
+	Note that \( X_{t+} \) is \( \mathscr{F}_{t+} \)-measurable, and then see the proof of Exercise 1.7.
+\end{prf}
+
+%random times
+\setcounter{exe}{15} % next 1.16
+\begin{prob}
+	If the process X is jointly measurable and the random time \( T \) is finite,
+	then the function \( X_T \) is a random variable.
+\end{prob}
+\begin{prf}
+	Let \( J \) be the map defined by
+	\[
+		J:\Omega \ni \omega \mapsto (T(\omega),\omega) \in [0,\infty)\times \Omega
+	\]
+	so that \( J \) is measurable \( \mathscr{F}/\mathscr{B}[0,\infty)\otimes \mathscr{F} \).
+	Since \( X \) is measurable \( \mathscr{B}[0,\infty)\otimes \mathscr{F}/\mathscr{B}(\mathbb{R}^d) \)
+	by assumption, it follows that \( X_T=X\circ J \) is measurable \( \mathscr{F}/\mathscr{B}(\mathbb{R}^d) \).
+\end{prf}
+
+\begin{prob}
+	Let \( X \) be a jointly measurable process and \( T \) a random time. Show that the
+	collection of all sets of the form \( \{X_T\in A\} \) and \( \{X_T\in A\} \cup \{ T=\infty \}; \)
+	\( A\in \mathscr{B}(\mathbb{R}), \) forms a sub-\( \sigma \)-field of \( \mathscr{F} \).
+\end{prob}
+\begin{prf}
+	Define
+	\[\mathscr{G}:=\{ \{X_T\in A\},\; \{X_T\in A\}\cup\{T=\infty\} \mid A\in \mathscr{B}(\mathbb{R})\},\]
+	and note that
+	\[
+		\{X_T\in A\}=\{X_{T(\omega)}(\omega)\in A\}\cap \{T \ll \infty\}.
+	\]
+	Clearly \( \emptyset \in \mathscr{G} \).
+	Let \( G \in \mathscr{G} \). Then \( G=\{X_T\in A\} \) or \( \{X_T\in A\} \cup \{ T=\infty \} \)
+	for some \( A\in \mathscr{B}(\mathbb{R}) \),
+	and so \( G^c=\{X_{T(\omega)}(\omega)\in A^c\}\cup \{ T=\infty \} \) or \( \{ X_T\in A^c \} \cap \{ T \ll \infty \} \); \( G^c \) is in \( \mathscr{G} \).
+	Similar argument shows that \( \mathscr{G} \) is closed under countable union.
+\end{prf}
+\end{document}

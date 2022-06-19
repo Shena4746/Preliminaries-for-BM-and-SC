@@ -1,0 +1,279 @@
+\documentclass{report}
+%\documentclass[a4paper,12pt]{article}
+\usepackage{mystyle}
+\usepackage{commands}
+\mathtoolsset{showonlyrefs=true}
+
+% remember that docmute package neglects all the preambles of the included .tex files. 
+\begin{document}
+% note that \chapter is not available for article
+\section{Stopping times}
+\setcounter{exe}{1}
+\begin{prob}
+	Let \( X \) be a stochastic process and \( T \) a stopping time of \( \{\mathscr{F}_t^X\}. \)
+	Suppose that for some pair \( \omega, \omega' \in \Omega \), we have \( X_t(\omega)=X_t(\omega') \) for all \( t\in [0,T(\omega)]\cap[0,\infty) \).
+	Show that \( T(\omega)=T(\omega') \).
+\end{prob}
+\begin{prf}
+	Suppose \( T(\omega')\le T(\omega) \).
+	Choose \( t\in(T(\omega'), T(\omega)) \) so that \( \omega \in \{t\le T\} \in \mathscr{F}_t^X \).
+	Note that \( \{t\le T\}=\{(X_{t_1},X_{t_2},\dotsm)\in A\} \) for some \( \{t_j \} _{j=1}^{\infty} \subset [0,t] \) and \( A\in \mathscr{B}(\mathbb{R}^{\infty}) \).
+	Since \( t\in [0,T(\omega)] \cap [0,\infty) \) and \( \omega \in \{X_t\in A\} \),
+	we have, by assumption, \( \omega' \) is also in the set \( \{(X_{t_1},X_{t_2},\dotsm)\in A\}=\{t\le T\} \), a contradiction.
+	For \( T(\omega)\le T(\omega') \), taking \( t=T(\omega) \) leads to similar contradiction. Thus \( T(\omega)=T(\omega') \).
+\end{prf}
+
+\setcounter{exe}{5}
+\begin{prob}
+	If the set \( \Gamma \) in Example 2.5 is open, show that \( H_{\Gamma} \) is an optional time.
+\end{prob}
+\begin{prf}
+	It suffices to show that
+	\[
+		\{H_{\Gamma} \le t\}=\bigcup_{\substack{q\le t \\ q\in \mathbb{Q}\cap [0,t]}}\{X_q \in \Gamma \}.
+	\]
+	\( \supset \) is trivial. Conversely, let \( \omega \) be such that \( H_{\Gamma}(\omega) \le t. \) There exists \( s\in (H_{\Gamma}(\omega), t) \) such that 
+	\( X_s(\omega)\in \Gamma. \)
+	Since \( \Gamma \) is open, \( B(X_s(\omega), \epsilon)\subset \Gamma \) for small \( \epsilon \gg 0. \) Using right-continuity, pick \( \delta \gg0 \) such that
+	if \( r\in (s,s+\delta) \), then \( X_r(\omega)\in B(X_s(\omega), \epsilon) \).
+	In particular, we can choose \( r=q\in \mathbb{Q} \).
+\end{prf}
+
+\setcounter{exe}{6}
+\begin{prob} 
+	If the set \( \Gamma \) in Example 2.5 is closed and the sample paths of the process \( X \) are continuous, then \( H_{\Gamma} \) is a stopping time.
+\end{prob}
+\begin{prf}
+	Observe that since \( \omega \mapsto X_q(\omega) \) is measurable \( \mathscr{F}_q/\mathscr{B}(\mathbb{R}) \) and \( x \mapsto d(x,\Gamma) \) is measurable \( \mathscr{B}(\mathbb{R})/\mathscr{B}(\mathbb{R}) \) (and continuous),
+	\( \omega \mapsto d(X_q(\omega),\Gamma) \) is measurable \( \mathscr{F}_q/\mathscr{B}(\mathbb{R}) \).
+	
+	Set \( R(t,\omega):=\{X_s(\omega)\,;\,s\in[0,t]\} \), which is compact since \( X \) is continuous.
+	Then for each \( t\ge0 \)
+	\[H_{\Gamma} \le t \; \Leftrightarrow \; R(t)\cap \Gamma \neq \emptyset
+		\;\Leftrightarrow \; d(R(t),\Gamma)=0 \; \Leftrightarrow \; \inf_{q\in [0,t]\cap \mathbb{Q}}d(X_q,\Gamma)=0,\]
+	and the result follows.
+\end{prf}
+
+\setcounter{exe}{9}
+\begin{prob}
+	Let \( T \), \( S \) be optional times; then \( T+S \) is optional.
+	It is a stopping time, if one of the following condition holds:
+	\begin{itemize}
+		\item[(1)] \( T\gg 0 \), \( S\gg 0 \);
+		\item[(2)] \( T\gg 0 \), \( T \) is a stopping time.
+	\end{itemize}
+\end{prob}
+\begin{prf}
+	By Lemma 2.9, \( T+S \) is \( \mathscr{F}_{t+} \)-stopping time, and so it is 
+	\( \mathscr{F}_{t} \)-optional time.
+	
+	For (1), in view of Lemma 2.9, following fact yields the result; 
+	for \( q\in \mathbb{Q}_{+}\cap(0,t) \)
+	\[
+		\{q\le T\le t, S\gg t-q\}=[\{T\le t\} \setminus \{T\le q\}] \cap \{S+q\gg t\},
+	\]
+	and \( S+q \) is a stopping time (by Lemma 2.8).
+	Now (2) is easy.
+\end{prf}
+
+\setcounter{exe}{12}
+\begin{prob}
+	Verify that \( \mathscr{F}_T \) is actually a \( \sigma \)-field and \( T \) is
+	\( \mathscr{F}_T \)-measurable. Show that if \( T(\omega)=t_0 \) for some constant \( t_0\ge0 \)
+	and every \( \omega \in \Omega \), then \( \mathscr{F}_T=\mathscr{F}_{t_0} \).
+\end{prob}
+\begin{prf}
+	Clearly, \( \mathscr{F}_T \) is closed under countable union, and
+	\( \emptyset \in \mathscr{F}_T \).
+	Observe that
+	\[
+		\{T\le t\}\cap \{A \cap \{ T \le t \} \} ^c = A^c \cap \{T \le t\},
+	\]
+	which proves \( \mathscr{F}_T \) is a \( \sigma \)-field.
+	
+	For \( s\ge 0 \) and \( t\ge 0 \),
+	\[
+		\{T\le s\}\cap \{T\le t\}\in \mathscr{F}_t,
+	\]
+	which is obvious, since for \( s\ge t\ge 0 \), \( \{T\le s\}\cap \{T\le t\}=\{T\le t\}\in \mathscr{F}_t \),
+	and for \( t\gg s\ge 0 \),
+	\( \{T\le s\}\cap \{T\le t\}=\{T\le s\}\in \mathscr{F}_s \subset \mathscr{F}_t \).
+	
+	Third claim follows from the following observation;
+	\[
+		\mathscr{F}_T
+		= \{A\in \mathscr{F}\;;\;A \cap \{ T \le t\}\in \mathscr{F}_t\quad \forall t\ge t_0\}
+		=\{A\in \mathscr{F}\;;\;A\in \mathscr{F}_t\quad \forall t\ge t_0\} \\
+		=\mathscr{F}_{t_0}.
+	\]
+\end{prf}
+
+\begin{exe}
+	Let \( T \) be a stopping time and \( S \) a random time such that \( S\ge T \) on \( \Omega \).
+	If \( S \) is \( \mathscr{F}_{T} \)-measurable, then it is also a stopping time.
+\end{exe}
+\begin{prf}
+	Note that for every \( t\ge 0 \)
+	\[ \{ S\le t\}=\{S\le t\}\cap \{S\ge T\}=\{S\le t\} \cap \{S\ge T\} \cap \{ T\ le t\}=\{S\le t\} \cap \{ T \le t\},\]
+	and the result follows.
+\end{prf}
+
+\setcounter{exe}{16}
+\begin{prob}
+	Let \( T \), \( S \) be stopping times and \( Z \) an integrable random variable. We have
+	\begin{itemize}
+		\item[(1)] \( E(Z|\mathscr{F}_T)=E(Z|\mathscr{F}_{T\wedge S}) \), \( P \)-a.s. on \( \{T\le S\} \).
+		\item[(2)] \( E[E(Z|\mathscr{F}_T)|\mathscr{F}_S]=E(Z|\mathscr{F}_{T\wedge S}) \), \( P \)-a.s.
+	\end{itemize}
+\end{prob}
+\begin{prf}
+	For \( A\in \mathscr{F}_T \), \( A \cap \{T\le S\}\in \mathscr{F}_S \) (Lemma 2.15), and \( \in \mathscr{F}_T \) (Lemma 2.16), and so \( \in \mathscr{F}_{T\wedge S} \). Consequently,
+	\begin{align*}
+		\int_A 1_{\{T\le S\}}E(Z|\mathscr{F}_{T\wedge S})dP
+		 & =\int_{A\cap \{T\le S\}}E(Z|\mathscr{F}_{T\wedge S})dP \\
+		 & =\int_{A\cap \{T\le S\}}Z dP                           \\
+		 & =\int_{A\cap \{T\le S\}}E(Z|\mathscr{F}_{T})dP         \\
+		 & =\int_{A}1_{\{T\le S\}}E(Z|\mathscr{F}_{T})dP,
+	\end{align*}
+	and (1) follows.
+	
+	For (2), using (1), we find that, with probability 1,
+	\begin{align*}
+		1_{\{T\le S\}}E[E(Z|\mathscr{F}_T)|\mathscr{F}_S]
+		 & =E[1_{\{T\le S\}}E(Z|\mathscr{F}_T)|\mathscr{F}_S]           \\
+		 & =E[1_{\{T\le S\}}E(Z|\mathscr{F}_{T\wedge S})|\mathscr{F}_S] \\
+		 & =1_{\{T\le S\}}E[E(Z|\mathscr{F}_{T\wedge S})|\mathscr{F}_S] \\
+		 & =1_{\{T\le S\}}E(Z|\mathscr{F}_{T\wedge S}).
+	\end{align*}
+	We also conclude form (1) that, with probability 1,
+	\begin{align*}
+		1_{\{S\le T\}}E[E(Z|\mathscr{F}_T)|\mathscr{F}_S]
+		 & =1_{\{S\le T\}}E[E(Z|\mathscr{F}_T)|\mathscr{F}_{S\wedge T}] \\
+		 & =1_{\{S\le T\}}E(Z|\mathscr{F}_{S\wedge T}),
+	\end{align*}
+	and (2) follows.
+\end{prf}
+
+\setcounter{exe}{18}
+\begin{prob}
+	Let \( X=\{X_t, \mathscr{F}_t;0\le t\le \infty \} \) be a progressively measurable process,
+	and let \( T \) be a \( \mathscr{F}_t \)-stopping time, and \( f(t,x):[0,\infty)\times \mathbb{R}^d \to \mathbb{R} \) be a bounded, jointly measurable function.
+	Show that the process \( Y_t=\int_0^t f(s,X_s)ds; \) \( t\ge0 \) is progressively measurable
+	with respect to \( \mathscr{F}_t \),
+	and \( Y_T \) is an \( \mathscr{F}_T \) measurable random variable.
+\end{prob}
+\begin{prf}
+	By Proposition 2.18, it suffices to show that \( Y_t \) is progressively measurable.
+	Fix \( t\ge0 \).
+	It is easy to show that \( f(s,X_s) \) is progressively measurable, and hence \( Y_s \) is well-defined, and that \( Y_s \) is continuous in \( s \) (dominated convergence theorem).
+	For \( n\ge1 \) and \( k=0,1,\dotsm,nt-1 \), define 
+	\[Y_n(s,\omega):=\sum_{k=0}^{nt-1}Y(k/n,\omega)1_{( k/n,(k+1)/n ] }(s),\]
+	with \( Y_n(0,\omega)=Y_0(\omega) \). Clearly \( Y_n \) is progressively measurable, and by continuity, \( Y_n\to Y \) for each \( (s,\omega) \), which establishes the result.
+\end{prf}
+
+\setcounter{exe}{20}
+\begin{prob}
+	\
+	\begin{itemize}
+		\item[(1)] \( \mathscr{F}_{T+} \) is indeed a \( \sigma \)-field.
+		\item[(2)] \( T \) is \( \mathscr{F}_{T+} \)-measurable.
+		\item[(3)] \( \mathscr{F}_{T+}=\{A\in \mathscr{F} \mid A\cap \{T\le t\}\in \mathscr{F}_t,\; \forall t\ge0\}(=:\mathscr{G}_T). \)
+		\item[(4)] If \( T \) is a stopping time (so that \( \mathscr{F}_{T} \), \( \mathscr{F}_{T+} \) are defined), then \( \mathscr{F}_{T} \subset \mathscr{F}_{T+} \).
+	\end{itemize}
+\end{prob}
+\begin{prf}
+	(1): Copy the proof of Problem 2.13.\\
+	(2): Follows form (3).\\
+	(3): Let \( A\in \mathscr{G}_T \),
+	then \( A\cap \{T\le t+\frac{1}{n}\}\in \mathscr{F}_{t+\frac{1}{n}} \) for all \( n\ge1 \),
+	from which we deduce that
+	\( A\cap \{ T \le t \}\in \mathscr{F}_{t+} \). Thus \( A \in \mathscr{F}_{T+} \).
+	Conversely, Let \( A \in \mathscr{F}_{T+} \), then \( A\cap \{T\le t-\frac{1}{n}\}\in \mathscr{F}_{t-\frac{1}{n}}\subset \mathscr{F}_t \), which implies \( A\cap\{T\le t\}\in \mathscr{F}_t \). Thus \( A\in \mathscr{G}_t \)\\
+	(4): Obvious from the fact that \( A \) in \( \mathscr{F}_T \) satisfies
+	\( A\cap\{T\le t\}\in \mathscr{F}_t \subset \mathscr{F}_{t+} \).
+\end{prf}
+
+\begin{prob}
+	Analogues of Lemma 2.15 and Lemma 2.16 hold for optional times as stated below.
+	\begin{lem}[\( \bm{2.15'} \)]
+		For any two optional times \( T \) and \( S \), and for any \( A\in \mathscr{F}_{S+} \),
+		we have \( A\cap\{S\le T\}\in \mathscr{F}_{T+} \). In particular, if \( S\le T \) on \( \Omega \), we have
+		\( \mathscr{F}_{S+}\subset \mathscr{F}_{T+} \).
+	\end{lem}
+	\begin{lem}[\( \bm{2.16'} \)]
+		Let \( T \) and \( S \) be optional times.
+		Then \( \mathscr{F}_{(T\wedge S)+}=\mathscr{F}_{T+}\cap \mathscr{F}_{S+} \), and each of the events
+		\[\{T\le S\},\;\{S\le T\},\; \{T\le S\},\; \{S\le T\},\; \{T=S\}\]
+		belongs to \( \mathscr{F}_{T+}\cap \mathscr{F}_{S+} \).
+	\end{lem}
+\end{prob}
+\setcounter{exe}{21}
+\begin{prob}[continued]
+	Prove that if \( S \) is an optional time and \( T \) is a positive stopping time with
+	\( S\le T \), and \( S\le T \) on \( \{S\le \infty \} \), then \( \mathscr{F}_{S+}\subset \mathscr{F}_T \).
+\end{prob}
+\begin{prf}
+	Let \( A\in \mathscr{F}_{S+} \); \( A\cap \{ S\le t\}\in \mathscr{F}_t \), \( \forall t\ge0 \).
+	Use the following decomposition 
+	\[
+		A=[\bigcup_{q\in \mathbb{Q}_{+}}[A\cap \{S\le q\le T\}]]
+		\cup
+		[A \cap \{{S=\infty}\}],
+	\]
+	and note that,
+	for every \( t\ge0 \) and for each fixed \( q\in \mathbb{Q}_{+} \),
+	\begin{gather*}
+		A \cap \{ S \le q\le T \} \cap \{T\le t\} = [ A \cap \{ S \le q \} ] \cap \{ t \ge T\gg q\}\in \mathscr{F}_t,\\
+		A \cap \{ S = \infty \} \cap \{ T \le t \} = A \cap \{ S = \infty \} \cap \{ T = \infty \} \cap \{ T \le t\} = \emptyset,
+	\end{gather*}
+	which proves the result.
+\end{prf}
+\setcounter{exe}{22}
+\begin{prob}
+	Show that if \( \{T_n \}_{n=1}^{\infty} \) is a sequence of optional times and \( T=\inf_{n\ge 1} T_n \),
+	then \( \mathscr{F}_{T+}=\bigcap_{n=1}^{\infty}\mathscr{F}_{T_n+} \).
+	Besides, if each \( T_n \) is a positive stopping time and \( T\le T_n \) on \( \{T\le \infty \} \),
+	then we have \( \mathscr{F}_{T+}=\bigcap_{n=1}^{\infty}\mathscr{F}_{T_n} \). 
+\end{prob}
+\begin{prf}
+	\( \mathscr{F}_{T+}\subset \mathscr{F}_{T_n+} \), since \( T\le T_n \), \( \forall n \);
+	hence \( \mathscr{F}_{T+}\subset \bigcap_{n=1}^{\infty}\mathscr{F}_{T_n+} \).
+	Conversely, let \( A\in \bigcap_{n=1}^{\infty}\mathscr{F}_{T_n+} \), i.e.
+	\( A\cap \{ T_n\le t\}\in \mathscr{F}_t \), \( \forall n\ge1,\forall t\ge0 \).
+	Then
+	\[A \cap \{ T \le t \} = A \cap [ \bigcup_{n=1}^{\infty}\{T_n\le t\}]=\bigcup_{n=1}^{\infty} [ A \cap \{T_n\le t\}]\in \mathscr{F}_t.\]
+	Thus \( A\in \mathscr{F}_{T+} \)
+	
+	For the second claim, similar argument shows that \( \bigcap_{n=1}^{\infty}\mathscr{F}_{T_n} \subset \mathscr{F}_{T+} \), and
+	for the the other direction, use proposition 2.22 with \( T=T_n \), \( S=T \).
+\end{prf}
+
+\setcounter{exe}{23}
+\begin{prob}
+	Given an \( \mathscr{F}_t \)-optional time \( T \), consider the sequence of random time given by
+	\begin{equation*}
+		T_n(\omega)=\begin{cases}
+			T(\omega);     & \; \{\omega ;\; T(\omega)=+\infty \}                            \\
+			\frac{k}{2^n}; & \; \{\omega ;\; \frac{k-1}{2^n}\le T(\omega)\le \frac{k}{2^n}\}
+		\end{cases}
+	\end{equation*}
+	for \( n\ge 1 \), \( k\ge 1 \).
+	Obviously \( T_n \ge T_{n+1}\ge T \), for every \( n\ge1 \).
+	Show that each \( T_n \) is a stopping time, that \( \lim_{n \to \infty}T_n=T \),
+	and for every \( A\in \mathscr{F}_{T+} \) we have \( A \cap \{ T_n = k/{2^n}\}\in \mathscr{F}_{k/2^n}; \) \( n,k\ge1 \).
+\end{prob}
+\begin{prf}
+	For any \( n\ge1 \) and \( t\ge0 \), we can find some \( k\ge1 \)
+	such that \( \frac{k}{2^n}\le t\le \frac{k+1}{2^n} \);
+	whence
+	\[
+		\{ T_n\le t\}=\{T\le \frac{k}{2^n}\}\in \mathscr{F}_{k/{2^n}}\subset \mathscr{F}_t.
+	\]
+	Thus each \( T_n \) is a stopping time. The following observation completes the proof.
+	\begin{gather*}
+		|T_n(\omega)-T(\omega)|\le \frac{1}{2^n},\quad \forall \omega \in \Omega \setminus \{T(\omega)=+\infty \},\;\forall n\ge1,\\
+		A\cap \{T_n=\frac{k}{2^n}\}=[A \cap \{\frac{k-1}{2^n}\le T(\omega)\le \frac{k}{2^n}\}.]
+	\end{gather*}
+\end{prf}
+
+\end{document}

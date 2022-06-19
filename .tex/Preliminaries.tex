@@ -1,27 +1,23 @@
+% \usepackage[T1]{fontenc}
+% \usepackage{lmodern}
 \documentclass{report}
-% \documentclass[a4paper,12pt]{article}
 \usepackage{docmute}
 \usepackage{mystyle}
 \usepackage{commands}
 \mathtoolsset{showonlyrefs=true}
 
 \begin{document}
-%%% TITLE %%%
-\input{title}
-\thispagestyle{empty}
-\clearpage
 %%% FRONT %%% 
 \pagenumbering{roman}
 \tableofcontents
-\clearpage
-% \input{summary}
-\input{preface}
-\clearpage
-\input{notations}
+\input{about}
 \clearpage
 %%% BODY %%% 
 \pagenumbering{arabic}
 \input{chapter1}
+\input{section1-1}
+\input{section1-2}
+\input{section1-3}
 %%% BACK %%% 
 \clearpage
 \input{back}
